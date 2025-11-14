@@ -104,11 +104,23 @@ npm run dev
 
 ## Deployment
 
-### Vercel (Recommended)
+### Cloudflare Pages
+1. Push your code to GitHub
+2. In Cloudflare Pages dashboard, create a new project
+3. Connect your GitHub repository
+4. Configure build settings:
+   - **Build command**: `npm run build:cf`
+   - **Build output directory**: `.vercel/output/static`
+5. Add environment variables in Cloudflare Pages dashboard
+6. Deploy!
+
+**Note**: The `build` script only runs `next build` to prevent recursive build errors when `@cloudflare/next-on-pages` runs `vercel build` internally. Use `build:cf` for Cloudflare Pages deployments.
+
+### Vercel
 1. Push your code to GitHub
 2. Import your repository to Vercel
 3. Add environment variables in Vercel dashboard
-4. Deploy!
+4. Deploy! (Uses `npm run build` which only runs `next build`)
 
 ### Other Platforms
 The app can be deployed to any platform that supports Next.js:
