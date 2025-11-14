@@ -1,12 +1,12 @@
-import Stripe from 'stripe'
+let stripeInstance: any = null
 
-let stripeInstance: Stripe | null = null
-
-function getStripe(): Stripe {
+async function getStripe() {
   if (!stripeInstance) {
     if (!process.env.STRIPE_SECRET_KEY) {
       throw new Error('STRIPE_SECRET_KEY is not set')
     }
+    // Dynamic import to avoid loading during build
+    const Stripe = (await import('stripe')).default
     stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY)
   }
   return stripeInstance
@@ -22,7 +22,7 @@ export async function createStripeCheckoutSession(
   amount: number,
   currency: string = 'MYR'
 ) {
-  const stripe = getStripe()
+  const stripe = await getStripe()
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     line_items: [
