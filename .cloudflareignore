@@ -1,0 +1,4 @@
+.next/cache/
+.next/server/chunks/
+node_modules/
+
