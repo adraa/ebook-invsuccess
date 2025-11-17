@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Security Hardening: Updated Content-Security-Policy for new CDN -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://esm.sh https://i.imgur.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://esm.sh; style-src 'self' 'unsafe-inline';" />
+    <title>pushupmode</title>
+    <!-- Fixed: Removed integrity attribute as Tailwind CDN generates dynamic scripts that cannot use SRI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // This is the correct way to extend Tailwind when using the CDN
+      tailwind.config = {
+        theme: {
+          extend: {
+            keyframes: {
+              marquee: {
+                from: { transform: "translateX(0)" },
+                to: { transform: "translateX(calc(-100% - var(--gap)))" },
+              },
+              "marquee-vertical": {
+                from: { transform: "translateY(0)" },
+                to: { transform: "translateY(calc(-100% - var(--gap)))" },
+              },
+              shine: {
+                "0%": { backgroundPosition: "0% 0%" },
+                "50%": { backgroundPosition: "100% 100%" },
+                to: { backgroundPosition: "0% 0%" },
+              },
+              "circle-pop": {
+                "0%": { transform: "scale(0)" },
+                "80%": { transform: "scale(1.1)" },
+                "100%": { transform: "scale(1)" },
+              },
+              "check-draw": {
+                to: { "stroke-dashoffset": "0" },
+              },
+            },
+            animation: {
+              marquee: "marquee var(--duration) linear infinite",
+              "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+              shine: "shine var(--duration) linear infinite",
+              "circle-pop": "circle-pop 0.4s ease-out forwards",
+              "check-draw": "check-draw 0.3s ease-out 0.2s forwards",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* For smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client?external=react"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
